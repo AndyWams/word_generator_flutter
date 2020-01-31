@@ -10,6 +10,17 @@ class RandomWordsState extends State<RandomWords> {
   final _randomWordPairs = <WordPair>[];
   final _savedWordPairs = Set<WordPair>();
 
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text('WordPair Generator'), actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: _pushSaved,
+          )
+        ]),
+        body: _buildList());
+  }
+
   Widget _buildList() {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -30,7 +41,10 @@ class RandomWordsState extends State<RandomWords> {
     final alreadySaved = _savedWordPairs.contains(pair);
 
     return ListTile(
-      title: Text(pair.asPascalCase, style: TextStyle(fontSize: 18)),
+      title: Text(
+        pair.asPascalCase,
+        style: TextStyle(fontSize: 18),
+      ),
       trailing: Icon(alreadySaved ? Icons.favorite : Icons.favorite_border,
           color: alreadySaved ? Colors.red : null),
       onTap: () {
@@ -62,16 +76,5 @@ class RandomWordsState extends State<RandomWords> {
           appBar: AppBar(title: Text('Saved WordPairs')),
           body: ListView(children: divided));
     }));
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('WordPair Generator'), actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.list),
-            onPressed: _pushSaved,
-          )
-        ]),
-        body: _buildList());
   }
 }
